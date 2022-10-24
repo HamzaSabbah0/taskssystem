@@ -121,7 +121,7 @@ class CityController extends Controller
                 'title'=>'Success!','text'=>'City Deleted Successfully','icon'=>'success'
             ],Response::HTTP_OK);
         }else{
-            return response()->jaon([
+            return response()->json([
                 'title'=>'Faild!','text'=>'City Delete Failed','icon'=>'error'
             ],Response::HTTP_BAD_REQUEST);
         }

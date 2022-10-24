@@ -16,9 +16,13 @@ class CategoryPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny($userId)
     {
         //
+        $guard = auth('admin')->check() ? 'admin' : 'user';
+        return auth($guard)->user()->hasPermissionTo('Read-Categories')
+            ? $this->allow()
+            : $this->deny();
     }
 
     /**
@@ -31,6 +35,7 @@ class CategoryPolicy
     public function view(User $user, Category $category)
     {
         //
+        return $this->deny('DENIED');
     }
 
     /**
@@ -39,9 +44,14 @@ class CategoryPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create($userId)
     {
         //
+        $guard = auth('admin')->check() ? 'admin' : 'user';
+        if (auth('user')->check()) return $this->deny();
+        return auth($guard)->user()->hasPermissionTo('Create-Category')
+            ? $this->allow()
+            : $this->deny('UNAUTHORIZED ACTION | FORBIDDEN');
     }
 
     /**
@@ -54,6 +64,10 @@ class CategoryPolicy
     public function update(User $user, Category $category)
     {
         //
+        if (auth('user')->check()) return $this->deny();
+        return auth('admin')->user()->hasPermissionTo('Update-Category')
+            ? $this->allow()
+            : $this->deny('UNAUTHORIZED ACTION | FORBIDDEN');
     }
 
     /**

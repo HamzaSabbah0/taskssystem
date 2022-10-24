@@ -8,6 +8,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPermissionController;
 use App\Mail\WelcomeEmail;
 use Illuminate\Support\Facades\Route;
 
@@ -42,7 +43,10 @@ Route::prefix('cms/admin')->middleware('auth:admin')->group(function(){
 
     Route::resource('roles',RoleController::class);
     Route::resource('premissions',PermissionController::class);
-    Route::resource('roles.permissions',RolePermissionController::class);
+    Route::resource('role.permissions', RolePermissionController::class);
+    // Route::resource('permissions/role', RolePermissionController::class);
+    // Route::resource('permissions/user', UserPermissionController::class);
+    Route::resource('user.permissions', UserPermissionController::class);
 
     Route::resource('cities',CityController::class);
 });

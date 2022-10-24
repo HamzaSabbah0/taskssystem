@@ -16,6 +16,16 @@
         @csrf
       <div class="card-body">
         <div class="form-group">
+            <label>Role</label>
+            <select class="form-control roles" id="role_id" style="width: 100%;">
+                {{-- <option selected="selected">Alabama</option> --}}
+                @foreach ($roles as $role)
+                <option value="{{$role->id}}" @if($assignedRole==$role->name) selected
+                    @endif>{{$role->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control" id="name" placeholder="Enter name"
           value="@if(old('name')){{old('name')}}@else{{$admin->name}} @endif">
@@ -50,6 +60,7 @@
     function update(id , redirect)
         {
             axios.put('/cms/admin/admins/'+id,{
+                role_id: document.getElementById('role_id').value,
                 name:document.getElementById('name').value,
                 email:document.getElementById('email').value,
                 active:document.getElementById('active').checked

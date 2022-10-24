@@ -13,6 +13,12 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable , HasRoles;
 
+    protected $append = ['status'];
+
+    public function getStatusAttribute(){
+        return $this->active ? "Active" : "Disabled";
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -43,9 +49,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $append = ['status'];
-
-    public function getStatusAttribute(){
-        return $this->active ? "Active" : "Disabled";
-    }
 }

@@ -18,18 +18,21 @@ class RolePermissionController extends Controller
     public function index(Role $role)
     {
         //
+        // $permissions = Permission::where('guard_name', 'user')->get();
         $permissions = Permission::all();
-        $rolepermissions = $role->permissions;
-        if(count($rolepermissions) > 0){
-            foreach($permissions as $permission){
-                $permission->setAttribute('assigned',false);
-                foreach($rolepermissions as $rolepermission){
-                    $permission->assigned = $permission->id == $rolepermission->id;
+        $rolePermissions = $role->permissions;
+        if(count($rolePermissions) > 0){
+            foreach ($permissions as $permission) {
+                $permission->setAttribute('assigned', false);
+                foreach ($rolePermissions as $rolePermission) {
+                    // $permission->assigned = $permission->id == $rolePermission->id;
+                    if ($permission->id == $rolePermission->id) {
+                        $permission->setAttribute('assigned', true);
+                    }
                 }
             }
         }
-
-        return response()->view('cms.spatie.roles.role-permissions',[
+        return response()->view('cms.spatie.roles.role-permissions', [
             'role' => $role,
             'permissions' => $permissions
         ]);
@@ -54,21 +57,24 @@ class RolePermissionController extends Controller
     public function store(Request $request , Role $role)
     {
         //
-        $validator = Validator($request->all(),[
-            'permission_id'=>'required|integer|exists:permissions,id'
+        $validator = Validator($request->all(), [
+            // 'role_id' => 'required|integer|exists:roles,id',
+            'permission_id' => 'required|integer|exists:permissions,id',
         ]);
-        if(!$validator->fails()){
+        if (!$validator->fails()) {
+            // $role =  Role::findOrFail($request->get('role_id'));
             $permission = Permission::findOrFail($request->get('permission_id'));
-            if($role->hasPermissionTo($permission)){
+
+            if ($role->hasPermissionTo($permission)) {
                 $role->revokePermissionTo($permission);
-            }else{
+            } else {
                 $role->givePermissionTo($permission);
             }
-            return response()->jaon(['message'=>'Permission Updated Successfully'
-        ],Response::HTTP_OK);
-        }else{
-            return response()->json(['message'=>$validator->getMessageBag()->first()
-        ],Response::HTTP_BAD_REQUEST);
+            return response()->json(['message' => 'Permission updated successfully'
+        ],  Response::HTTP_OK);
+        } else {
+            return response()->json(['message' => $validator->getMessageBag()->first()
+        ], Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -81,6 +87,23 @@ class RolePermissionController extends Controller
     public function show($id)
     {
         //
+        // $role = Role::findOrFail($id);
+        // $rolePermissions = $role->permissions;
+
+        // $permissions = Permission::where('guard_name', $role->guard_name)->get();
+        // foreach ($permissions as $permission) {
+        //     $permission->setAttribute('assigned', false);
+        //     foreach ($rolePermissions as $rolePermission) {
+        //         if ($rolePermission->id == $permission->id) {
+        //             $permission->setAttribute('assigned', true);
+        //             break;
+        //         }
+        //     }
+        // }
+        // return response()->view('cms.spatie.roles.role-permissions', [
+        //     'role' => $role,
+        //     'permissions' => $permissions
+        // ]);
     }
 
     /**

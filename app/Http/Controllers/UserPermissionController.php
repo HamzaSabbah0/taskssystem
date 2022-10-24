@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Permission;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserPermissionController extends Controller
 {
@@ -11,9 +15,25 @@ class UserPermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
         //
+        $permissions = Permission::where('guard_name', 'user')->get();
+        $userPermissions = $user->permissions;
+        if(count($userPermissions) > 0){
+            foreach ($permissions as $permission) {
+                $permission->setAttribute('assigned', false);
+                foreach ($userPermissions as $userPermission) {
+                    if ($permission->id == $userPermission->id) {
+                        $permission->setAttribute('assigned', true);
+                    }
+                }
+            }
+        }
+        return response()->view('cms.users.user-permissions', [
+            'user' => $user,
+            'permissions' => $permissions
+        ]);
     }
 
     /**
@@ -32,9 +52,27 @@ class UserPermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request , User $user)
     {
         //
+        $validator = Validator($request->all(), [
+            'permission_id' => 'required|integer|exists:permissions,id',
+        ]);
+        if (!$validator->fails()) {
+            $permission = Permission::findById($request->get('permission_id'),'user');
+
+            if ($user->hasPermissionTo($permission)) {
+                $user->revokePermissionTo($permission);
+            } else {
+                $user->givePermissionTo($permission);
+            }
+
+            return response()->json(['message' => 'Permission updated successfully'
+        ],  Response::HTTP_OK);
+        } else {
+            return response()->json(['message' => $validator->getMessageBag()->first()
+        ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

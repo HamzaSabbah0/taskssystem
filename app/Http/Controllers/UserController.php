@@ -17,8 +17,9 @@ class UserController extends Controller
     public function index()
     {
         //
-        $data = User::where('id','!=',auth('user')->id())->get();
-        return response()->view('cms.users.index',['users'=>$data]);
+        // $data = User::where('id','!=',auth('user')->id())->get();
+        $users = User::withCount('permissions')->get();
+        return response()->view('cms.users.index',['users'=>$users]);
 
     }
 

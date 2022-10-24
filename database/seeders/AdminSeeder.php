@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class AdminSeeder extends Seeder
 {
@@ -14,5 +16,11 @@ class AdminSeeder extends Seeder
     public function run()
     {
         //
+        $admin = Admin::create([
+            'name' => 'Super Admin',
+            'email' => 'admin@app.com',
+            'active' => 1,
+        ]);
+        $admin->assignRole(Role::findById(1, 'admin'));
     }
 }

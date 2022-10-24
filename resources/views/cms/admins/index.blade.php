@@ -33,7 +33,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Active</th>
+                <th>Status</th>
                 <th>Created At</th>
                 <th>Updated At</th>
                 <th>Setting</th>
@@ -47,8 +47,8 @@
                     <td>{{$admin->name}}</td>
                     <td>{{$admin->email}}</td>
                     <td><span class="badge @if($admin->active) bg-success @else bg-danger @endif">{{$admin->status}}</span></td>
-                    <td>{{$admin->created_at}}</td>
-                    <td>{{$admin->updated_at}}</td>
+                    <td>{{$admin->created_at->format('y-m-d H:ma')}}</td>
+                    <td>{{$admin->updated_at->format('y-m-d H:ma')}}</td>
                     <td>
                         <div class="btn-group">
                             <a href="{{route('admins.edit',$admin->id)}}" class="btn btn-info">

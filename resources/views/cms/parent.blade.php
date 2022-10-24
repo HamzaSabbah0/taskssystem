@@ -221,7 +221,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @canany(['Read-Admins','Create-Admins','Read-Users','Create-Users'])
           <li class="nav-header">Human Resources</li>
+          @canany(['Read-Admins','Create-Admins'])
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-user"></i>
@@ -231,20 +233,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview" style="display: none;">
-              <li class="nav-item">
-                <a href="{{route('admins.create')}}" class="nav-link">
-                  <i class="far fa-plus-square"></i>
-                  <p>Create</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('admins.index')}}" class="nav-link">
-                  <i class="fas fa-list-ul"></i>
-                  <p>Index</p>
-                </a>
-              </li>
+                @can('Create-Admins')
+                    <li class="nav-item">
+                        <a href="{{route('admins.create')}}" class="nav-link">
+                        <i class="far fa-plus-square"></i>
+                        <p>Create</p>
+                        </a>
+                    </li>
+                @endcan
+                @can('Read-Admins')
+                    <li class="nav-item">
+                        <a href="{{route('admins.index')}}" class="nav-link">
+                        <i class="fas fa-list-ul"></i>
+                        <p>Index</p>
+                        </a>
+                    </li>
+                @endcan
             </ul>
           </li>
+          @endcanany
+          @canany(['Read-Users','Create-Users'])
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-user"></i>
@@ -254,21 +262,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview" style="display: none;">
-              <li class="nav-item">
-                <a href="{{route('users.create')}}" class="nav-link">
-                  <i class="far fa-plus-square"></i>
-                  <p>Create</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('users.index')}}" class="nav-link">
-                  <i class="fas fa-list-ul"></i>
-                  <p>Index</p>
-                </a>
-              </li>
+                @can('Create-Users')
+                    <li class="nav-item">
+                        <a href="{{route('users.create')}}" class="nav-link">
+                        <i class="far fa-plus-square"></i>
+                        <p>Create</p>
+                        </a>
+                    </li>
+                @endcan
+                @can('Read-Users')
+                    <li class="nav-item">
+                        <a href="{{route('users.index')}}" class="nav-link">
+                        <i class="fas fa-list-ul"></i>
+                        <p>Index</p>
+                        </a>
+                    </li>
+                @endcan
             </ul>
           </li>
+          @endcanany
+          @endcanany
+          @canany(['Read-Roles','Create-Roles','Read-Permissions','Create-Permissions'])
           <li class="nav-header">Roles & Permissions</li>
+          @canany(['Read-Roles','Create-Roles'])
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-user-tag"></i>
@@ -278,20 +294,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview" style="display: none;">
-              <li class="nav-item">
-                <a href="{{route('roles.create')}}" class="nav-link">
-                  <i class="far fa-plus-square"></i>
-                  <p>Create</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('roles.index')}}" class="nav-link">
-                  <i class="fas fa-list-ul"></i>
-                  <p>Index</p>
-                </a>
-              </li>
+                @can('Create-Roles')
+                    <li class="nav-item">
+                        <a href="{{route('roles.create')}}" class="nav-link">
+                        <i class="far fa-plus-square"></i>
+                        <p>Create</p>
+                        </a>
+                    </li>
+                @endcan
+                @can('Read-Roles')
+                    <li class="nav-item">
+                        <a href="{{route('roles.index')}}" class="nav-link">
+                        <i class="fas fa-list-ul"></i>
+                        <p>Index</p>
+                        </a>
+                    </li>
+                @endcan
             </ul>
           </li>
+          @endcanany
+          @canany(['Read-Permissions','Create-Permissions'])
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-key"></i>
@@ -301,21 +323,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview" style="display: none;">
-              <li class="nav-item">
-                <a href="{{route('premissions.create')}}" class="nav-link">
-                  <i class="far fa-plus-square"></i>
-                  <p>Create</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('premissions.index')}}" class="nav-link">
-                  <i class="fas fa-list-ul"></i>
-                  <p>Index</p>
-                </a>
-              </li>
+                @can('Create-Permissions')
+                    <li class="nav-item">
+                        <a href="{{route('premissions.create')}}" class="nav-link">
+                        <i class="far fa-plus-square"></i>
+                        <p>Create</p>
+                        </a>
+                    </li>
+                @endcan
+                @can('Read-Permissions')
+                    <li class="nav-item">
+                        <a href="{{route('premissions.index')}}" class="nav-link">
+                        <i class="fas fa-list-ul"></i>
+                        <p>Index</p>
+                        </a>
+                    </li>
+                @endcan
             </ul>
           </li>
+          @endcanany
+          @endcanany
+          @canany(['Read-Category','Create-Category','Read-City','Create-City'])
           <li class="nav-header">Content Management</li>
+          @canany(['Read-City','Create-City'])
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-map-marker-alt"></i>
@@ -325,22 +355,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview" style="display: none;">
-                @can('create-city')
-                <li class="nav-item">
-                    <a href="{{route('cities.create')}}" class="nav-link">
-                      <i class="far fa-plus-square"></i>
-                      <p>Create</p>
-                    </a>
-                  </li>
+                @can('Create-City')
+                    <li class="nav-item">
+                        <a href="{{route('cities.create')}}" class="nav-link">
+                        <i class="far fa-plus-square"></i>
+                        <p>Create</p>
+                        </a>
+                    </li>
                 @endcan
-              <li class="nav-item">
-                <a href="{{route('cities.index')}}" class="nav-link">
-                  <i class="fas fa-list-ul"></i>
-                  <p>Index</p>
-                </a>
-              </li>
+                @can('Read-City')
+                    <li class="nav-item">
+                        <a href="{{route('cities.index')}}" class="nav-link">
+                        <i class="fas fa-list-ul"></i>
+                        <p>Index</p>
+                        </a>
+                    </li>
+                @endcan
             </ul>
           </li>
+          @endcanany
+          @canany(['Read-Category','Create-Category'])
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-map-marker-alt"></i>
@@ -350,20 +384,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview" style="display: none;">
-              <li class="nav-item">
-                <a href="{{route('categories.create')}}" class="nav-link">
-                  <i class="far fa-plus-square"></i>
-                  <p>Create</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('categories.index')}}" class="nav-link">
-                  <i class="fas fa-list-ul"></i>
-                  <p>Index</p>
-                </a>
-              </li>
+                @can('Create-Category')
+                    <li class="nav-item">
+                        <a href="{{route('categories.create')}}" class="nav-link">
+                        <i class="far fa-plus-square"></i>
+                        <p>Create</p>
+                        </a>
+                    </li>
+                @endcan
+                @can('Read-Category')
+                    <li class="nav-item">
+                        <a href="{{route('categories.index')}}" class="nav-link">
+                        <i class="fas fa-list-ul"></i>
+                        <p>Index</p>
+                        </a>
+                    </li>
+                @endcan
             </ul>
           </li>
+          @endcanany
+          @endcanany
           <li class="nav-header">Setting</li>
           <li class="nav-item">
             <a href="{{route('edit-profile')}}" class="nav-link active">

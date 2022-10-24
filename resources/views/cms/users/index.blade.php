@@ -33,7 +33,8 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Active</th>
+                <th>Status</th>
+                <th>Permissions</th>
                 <th>Created At</th>
                 <th>Updated At</th>
                 <th>Setting</th>
@@ -47,6 +48,11 @@
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td><span class="badge @if($user->active) bg-success @else bg-danger @endif">{{$user->status}}</span></td>
+                    <td>
+                        <a href="{{route('user.permissions.index',$user->id)}}"
+                            class="btn btn-block btn-info btn-sm">({{ $user->permissions_count }})
+                            Permission/s</a>
+                    </td>
                     <td>{{$user->created_at}}</td>
                     <td>{{$user->updated_at}}</td>
                     <td>

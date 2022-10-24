@@ -1,9 +1,9 @@
 @extends('cms.parent')
 
-@section('title', 'role permissions')
-@section('page-title', 'Role Permissions Information')
+@section('title', 'user permissions')
+@section('page-title', 'User Permissions Information')
 @section('main-page-title', 'Home')
-@section('small-page-title', 'Role Permissions')
+@section('small-page-title', 'User Permissions')
 
 @section('styles')
 
@@ -18,7 +18,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">{{ $role->name }} Permissions</h3>
+                    <h3 class="card-title">{{ $user->name }} Permissions</h3>
 
                     <div class="card-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
@@ -49,7 +49,7 @@
                                     <td><span class="badge bg-success">{{ $permission->guard_name }}</span></td>
                                     <td>
                                         <div class="icheck-primary d-inline">
-                                            <input onchange="assignPermission({{ $role->id }} , {{ $permission->id }})"
+                                            <input onchange="assignPermission({{ $user->id }} , {{ $permission->id }})"
                                                 type="checkbox" id="permission_{{ $permission->id }}"
                                                 @if ($permission->assigned) checked @endif>
                                             <label for="permission_{{ $permission->id }}">
@@ -72,8 +72,23 @@
 @section('scripts')
 
     <script>
+        function assignPermission(userId, permissionId) {
+            axios.post('/cms/admin/user/'+userId+'/permissions', {
+                    permission_id: permissionId
+                }).then(function(response) {
+                    console.log(response);
+                    toastr.success(response.data.message);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                    toastr.error(error.response.data.message);
+                });
+        }
+    </script>
+
+    {{-- <script>
         function assignPermission(roleId, permissionId) {
-            axios.post('/cms/admin/role/' + roleId + '/permissions', {
+            axios.post('/cms/admin/roles/' + roleId + '/permissions', {
                     permission_id: permissionId
                 })
                 .then(function(response) {
@@ -87,22 +102,7 @@
                     toastr.error(error.response.data.message);
                 })
         }
-    </script>
-
-    {{-- <script>
-        function assignPermission(roleId, permissionId) {
-            axios.post('/cms/admin/permissions/role', {
-                    role_id: roleId,
-                    permission_id: permissionId
-                }).then(function(response) {
-                    console.log(response);
-                    toastr.success(response.data.message);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                    toastr.error(error.response.data.message);
-                });
-        }
     </script> --}}
+
 
 @endsection

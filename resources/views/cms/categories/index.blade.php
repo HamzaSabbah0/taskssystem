@@ -32,7 +32,7 @@
               <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Active</th>
+                <th>Status</th>
                 <th>Created At</th>
                 <th>Updated At</th>
                 <th>Setting</th>
