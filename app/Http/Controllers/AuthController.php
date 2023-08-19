@@ -13,7 +13,7 @@ class AuthController extends Controller
     //
     public function showLogin(Request $request , $guard){
 
-        return response()->view('cms.login',['guard'=>$guard]);
+        return response()->view('panel.pages.auth.login',['guard'=>$guard]);
 
     }
 
@@ -63,7 +63,7 @@ class AuthController extends Controller
     }
 
     public function editPassword(){
-        return response()->view('cms.auth.change-password');
+        return response()->view('panel.pages.auth.change-password');
     }
     public function updatePassword(Request $request){
 
@@ -87,7 +87,7 @@ class AuthController extends Controller
     }
 
     public function editProfile(){
-        $view = auth('admin')->check() ? 'cms.admins.edit' : 'cms.users.edit';
+        $view = auth('admin')->check() ? 'panel.pages.admins.edit' : 'panel.pages.users.edit';
         $guard = auth('admin')->check() ? 'admin' : 'user';
         return response()->view($view,[$guard => auth($guard)->user()]);
     }

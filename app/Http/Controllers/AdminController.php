@@ -22,7 +22,7 @@ class AdminController extends Controller
     {
         //
         $data = Admin::where('id','!=',auth('admin')->id())->get();
-        return response()->view('cms.admins.index',['admins'=>$data]);
+        return response()->view('panel.pages.admins.index',['admins'=>$data]);
     }
 
     /**
@@ -34,7 +34,7 @@ class AdminController extends Controller
     {
         //
         $roles = Role::where('guard_name', 'admin')->get();
-        return response()->view('cms.admins.create', ['roles' => $roles]);
+        return response()->view('panel.pages.admins.create', ['roles' => $roles]);
     }
 
     /**
@@ -97,7 +97,7 @@ class AdminController extends Controller
         //
         $assignedRole = $admin->getRoleNames()[0];
         $roles = Role::where('guard_name', 'admin')->get();
-        return response()->view('cms.admins.edit', [
+        return response()->view('panel.pages.admins.edit', [
             'admin' => $admin,
              'roles' => $roles,
              'assignedRole' => $assignedRole

@@ -37,6 +37,6 @@ class WelcomeEmail extends Mailable
         ->subject('Tasks System | Welcome Eamil')
         ->with(['admin'=>$this->admin])
         // ->with(['admin'=>$this->admin,'name'=>$this->admin->name])
-        ->markdown('cms.emails.welcome');
+        ->markdown('panel.pages.emails.welcome');
     }
 }

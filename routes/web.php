@@ -23,11 +23,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::prefix('cms')->middleware('guest:admin')->group(function(){
+Route::prefix('panel')->middleware('guest:admin')->group(function(){
 
     // Route::view('login','cms.login')->name('login');
     Route::get('{guard}/login',[AuthController::class,'showLogin'])->name('login');
@@ -35,7 +35,7 @@ Route::prefix('cms')->middleware('guest:admin')->group(function(){
 
 });
 
-Route::prefix('cms/admin')->middleware('auth:admin')->group(function(){
+Route::prefix('panel')->middleware('auth:admin')->group(function(){
 
     Route::resource('admins',AdminController::class);
     Route::resource('users',UserController::class);
@@ -51,9 +51,9 @@ Route::prefix('cms/admin')->middleware('auth:admin')->group(function(){
     Route::resource('cities',CityController::class);
 });
 
-Route::prefix('cms/admin')->middleware('auth:admin,user')->group(function(){
+Route::prefix('panel')->middleware('auth:admin,user')->group(function(){
 
-    Route::view('/', 'cms.starter');
+    Route::view('/', 'panel.home');
     Route::resource('categories',CategoryController::class);
 
     Route::get('edit-password',[AuthController::class,'editPassword'])->name('edit-password');

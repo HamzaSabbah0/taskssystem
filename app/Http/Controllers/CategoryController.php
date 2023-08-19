@@ -18,7 +18,7 @@ class CategoryController extends Controller
     {
         //
         $data = Category::all();
-        return response()->view('cms.categories.index',['categories'=>$data]);
+        return response()->view('panel.pages.categories.index',['categories'=>$data]);
     }
 
     /**
@@ -29,7 +29,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return response()->view('cms.categories.create');
+        return response()->view('panel.pages.categories.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         //
-        return response()->view('cms.categories.edit',['category'=>$category]);
+        return response()->view('panel.pages.categories.edit',['category'=>$category]);
     }
 
     /**

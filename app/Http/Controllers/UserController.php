@@ -19,7 +19,7 @@ class UserController extends Controller
         //
         // $data = User::where('id','!=',auth('user')->id())->get();
         $users = User::withCount('permissions')->get();
-        return response()->view('cms.users.index',['users'=>$users]);
+        return response()->view('panel.pages.users.index',['users'=>$users]);
 
     }
 
@@ -31,7 +31,7 @@ class UserController extends Controller
     public function create()
     {
         //
-        return response()->view('cms.users.create');
+        return response()->view('panel.pages.users.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
-        return response()->view('cms.users.edit',['user' => $user]);
+        return response()->view('panel.pages.users.edit',['user' => $user]);
     }
 
     /**

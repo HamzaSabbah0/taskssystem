@@ -17,7 +17,7 @@ class RoleController extends Controller
     {
         //
         $roles = Role::withCount('permissions')->get();
-        return response()->view('cms.spatie.roles.index',['roles'=>$roles]);
+        return response()->view('panel.pages.spatie.roles.index',['roles'=>$roles]);
     }
 
     /**
@@ -28,7 +28,7 @@ class RoleController extends Controller
     public function create()
     {
         //
-        return response()->view('cms.spatie.roles.create');
+        return response()->view('panel.pages.spatie.roles.create');
     }
 
     /**

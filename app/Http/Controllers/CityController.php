@@ -18,7 +18,7 @@ class CityController extends Controller
     {
         //
         $data = City::all();
-        return response()->view('cms.cities.index',['cities'=>$data]);
+        return response()->view('panel.pages.cities.index',['cities'=>$data]);
     }
 
     /**
@@ -29,7 +29,7 @@ class CityController extends Controller
     public function create()
     {
         //
-        return response()->view('cms.cities.create');
+        return response()->view('panel.pages.cities.create');
     }
 
     /**
@@ -78,7 +78,7 @@ class CityController extends Controller
     public function edit(City $city)
     {
         //
-        return response()->view('cms.cities.edit',['city'=>$city]);
+        return response()->view('panel.pages.cities.edit',['city'=>$city]);
     }
 
     /**

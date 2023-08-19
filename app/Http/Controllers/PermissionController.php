@@ -17,7 +17,7 @@ class PermissionController extends Controller
     {
         //
         $permissions = Permission::all();
-        return response()->view('cms.spatie.permissions.index',['permissions'=>$permissions]);
+        return response()->view('panel.pages.spatie.permissions.index',['permissions'=>$permissions]);
     }
 
     /**
@@ -28,7 +28,7 @@ class PermissionController extends Controller
     public function create()
     {
         //
-        return response()->view('cms.spatie.permissions.create');
+        return response()->view('panel.pages.spatie.permissions.create');
     }
 
     /**

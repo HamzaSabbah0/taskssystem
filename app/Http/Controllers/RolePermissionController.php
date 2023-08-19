@@ -32,7 +32,7 @@ class RolePermissionController extends Controller
                 }
             }
         }
-        return response()->view('cms.spatie.roles.role-permissions', [
+        return response()->view('panel.pages.spatie.roles.role-permissions', [
             'role' => $role,
             'permissions' => $permissions
         ]);

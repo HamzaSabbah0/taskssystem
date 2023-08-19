@@ -30,7 +30,7 @@ class UserPermissionController extends Controller
                 }
             }
         }
-        return response()->view('cms.users.user-permissions', [
+        return response()->view('panel.pages.users.user-permissions', [
             'user' => $user,
             'permissions' => $permissions
         ]);
